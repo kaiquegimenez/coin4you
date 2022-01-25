@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import axios from 'axios'
   export default {
     data() {
@@ -27,7 +27,7 @@ import axios from 'axios'
               console.log(res.data.user)
               localStorage.setItem('token', res.data.user.token);
               localStorage.setItem('user',  JSON.stringify(res.data.user))
-              this.$router.push('Home');
+              this.$router.push('home');
             } else {
               console.log(res.data.message);
             }

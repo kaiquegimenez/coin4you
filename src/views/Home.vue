@@ -23,7 +23,7 @@
         @click.native="openDialog(person)"
         v-for="(person, index) in persons"
         :key="index"
-        :name="person.nome"
+        :person="person"
       />
     </div>
     <Footer />
@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Dialog from '../components/Dialog.vue'
 import ListPersons from "../components/ListPersons.vue";
 import Footer from "../components/Footer.vue";
@@ -62,27 +62,27 @@ export default {
   methods: {
     getUser() {
       return api.get("https://back-coin.herokuapp.com/users")
-        .then((res: any) => {
+        .then((res) => {
           if (res.status === 200) {
             this.user = res.data;
           }
         })
-        .catch((err: any) => {
+        .catch((err) => {
           console.log(err);
         });
     },
     getListUsers() {
       return api.get("https://back-coin.herokuapp.com/list/users")
-        .then((res: any) => {
+        .then((res) => {
           if (res.status === 200) {
             this.persons = res.data;
           }
         })
-        .catch((err: any) => {
+        .catch((err) => {
           console.log(err);
         });
     },
-    openDialog(person: any) {
+    openDialog(person) {
       this.person = person
       this.showModal = true
     },

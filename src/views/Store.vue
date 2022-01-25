@@ -10,7 +10,7 @@
   </div>
   
 </template>
-<script lang="ts">
+<script>
 import Footer from '../components/Footer.vue'
 import ListStore from '../components/ListStrore.vue'
 import Header from '../components/Header.vue'
@@ -27,17 +27,17 @@ export default{
     }
   },
   mounted() {
-    this.listProducts()
+    this.getListProducts()
   },
   methods: {
-    listProducts() {
+    getListProducts() {
       return api.get("https://back-coin.herokuapp.com/adm/product")
-        .then((res: any) => {
+        .then((res) => {
           if (res.status === 200) {
             this.products = res.data;
           }
         })
-        .catch((err: any) => {
+        .catch((err) => {
           console.log(err);
         });
     }

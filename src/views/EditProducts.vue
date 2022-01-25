@@ -3,70 +3,71 @@
     <Header/>
     <div class="body-container">
       <div class="input-container">
-        <div class="input-email">
-          <input class="input input__email" type="text" placeholder="E-mail" v-model="email">
+        <div>
+          <input class="input" type="text" placeholder="Nome do Produto" v-model="name">
+          <input class="input" type="number" placeholder="Valor do Produto" v-model="value">
         </div>
         <div>
-          <input class="input" type="text" placeholder="Nome" v-model="name">
-          <input class="input" type="password" placeholder="Senha" v-model="password">
+          <input class="input input__description" type="text" placeholder="Descrição do Produto" v-model="description">
         </div>
       </div>
       <div class="button-container">
-        <button @click="registerNewUser()" class="button">Cadastrar</button>
+        <button @click="registerNewProduct()" class="button">Cadastrar</button>
       </div>
-      <div class="list-persons">
-        <ListPersons
-          v-for="(person, index) in persons"
-          :key="index"
-          :person="person"
+      <div class="list-products">
+        <ListStore 
           :edit="true"
-          @getUsers="getListUsers()"
+          v-for="(product, index) in products"
+          :key="index"
+          :product="product"
+          @getProducts="getListProducts()"
         />
       </div>
     </div>
     <Footer/>
   </div>
 </template>
+
 <script>
+import api from '../api';
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
-import ListPersons from '../components/ListPersons.vue'
-import api from '../api'
+import ListStore from '../components/ListStrore.vue'
 export default {
   components: {
     Header,
     Footer,
-    ListPersons
+    ListStore
   },
   data() {
     return {
-      persons: [],
       name: '',
-      password: '',
-      email: '',
+      value: '',
+      description: '',
+      products: {}
     }
   },
-  mounted(){
-    this.getListUsers()
+  mounted() {
+    this.getListProducts();
   },
   methods: {
-    getListUsers() {
-      return api.get("https://back-coin.herokuapp.com/list/users")
+    getListProducts() {
+      return api.get("https://back-coin.herokuapp.com/adm/product")
         .then((res) => {
           if (res.status === 200) {
-            this.persons = res.data;
+            this.products = res.data;
           }
         })
         .catch((err) => {
           console.log(err);
         });
     },
-
-    registerNewUser() {
-      return api.post("https://back-coin.herokuapp.com/users", {nome: this.name, email: this.email, senha: this.password})
+    registerNewProduct() {
+      return api.post("https://back-coin.herokuapp.com/adm/product", {nome: this.name, valor: this.value, descricao: this.description})
         .then((res) => {
+          debugger
           if (res.data.success) {
-            this.getListUsers()
+            this.getListProducts()
             console.log(res.data.message);
             this.password = '';
             this.email = '';
@@ -78,24 +79,26 @@ export default {
         });
     }
   }
-  
 }
 </script>
 
 <style lang="scss" scoped>
   .body-container {
-    height: calc(95vh - 50px);
+    height: calc(100vh - 90px);
+    overflow: hidden;
   }
   .input-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 15%;
+    height: 11%;
   }
-  .list-persons {
-    height: 80%;
+
+  .list-products {
+    height: 84%;
     overflow: auto;
   }
+
   .input {
     border: 1px solid rgba(0, 0, 0, 0.425);
     height: 20px;
@@ -103,12 +106,9 @@ export default {
     border-radius: 5px;
     margin: 5px;
     width: calc(50% - 22px);
-    &__email {
+    &__description {
       width: calc(100% - 22px);
     }
-  }
-  .input-email {
-    width: 100%;
   }
 
   .button-container {

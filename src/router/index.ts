@@ -29,7 +29,12 @@ const routes: Array<RouteConfig> = [
     path: '/editUsers',
     name: 'EditUsers',
     component: () => import('../views/EditUsers.vue')
-  }
+  },
+  {
+    path: '/editProducts',
+    name: 'EditProducts',
+    component: () => import('../views/EditProducts.vue')
+  },
 ]
 
 const router = new VueRouter({

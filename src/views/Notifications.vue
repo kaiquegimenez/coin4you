@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { Component, Vue } from 'vue-property-decorator';
 import Footer from '../components/Footer.vue'
 import ListNotifications from '../components/ListNotifications.vue'

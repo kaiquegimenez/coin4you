@@ -10,7 +10,7 @@
         </div>
       </div>
       <div v-if="edit">
-        <button class="button button__edit">
+        <button @click="editUser()" class="button button__edit">
           <img src="../assets/icons/edit.svg" width="24px" height="24px" alt="">
         </button>
         <button @click="deleteUser()" class="button button__delete">
@@ -18,28 +18,25 @@
         </button>
       </div>
     </div>
+    <DialogEdit @confirmEdit="confirmEdit" @close="showDialog = false" v-if="showDialog" :data="person" title="Editar Usuário" type="user"/>
   </div>
 </template>
 
 <script>
 import api from '../api'
+import DialogEdit from '../components/DialogEdit.vue'
 export default {
   name: 'ListPersons',
+  components: {
+    DialogEdit
+  },
   data() {
-    return {};
+    return {
+      showDialog: false,
+    };
   },
   props: {
-    person: {
-      default() {
-        return {
-          nome: '',
-          id: '',
-          email: '',
-          deletado_em: false
-        }
-      },
-      type: Object
-    },
+    person: {},
     edit: {
       default: false,
       type: Boolean
@@ -62,8 +59,14 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      }
+    },
+    editUser(){
+      this.showDialog = true
+    },
+    confirmEdit() {
+      this.$emit('getProducts');
     }
+  },
 }
 </script>
 
