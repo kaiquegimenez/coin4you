@@ -5,7 +5,7 @@
         <img class="icon" src="../assets/icons/coin.svg" alt="" />
         | coin4you
       </div>
-      <div>
+      <div v-if="$route.name === 'Home'" @click="$emit('openMenu')">
         <img src="../assets/icons/menu.svg" alt="" />
       </div>
     </div>

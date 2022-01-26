@@ -3,6 +3,7 @@
     <div class="container-image">
     </div>
     <div class="container-login">
+      <h3>Bem vindo ao Coin4You</h3>
       <input class="input" placeholder="E-mail" type="text" v-model="email">
       <input class="input" placeholder="Senha" type="password" v-model="password">
       <button class="button" @click="login()">Entrar</button>
@@ -42,6 +43,7 @@ import axios from 'axios'
 
 <style lang="scss" scoped>
   .body {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -50,19 +52,34 @@ import axios from 'axios'
     height: 100vh;
     background: #f3be1148 url('../assets/images/background_login.jpg') no-repeat;
   }
+  h3 {
+    color: #F3C011;
+  }
   .input {
     border-radius: 5px;
     border: 1px solid gray;
     height: 20px;
   }
   .button {
-    background-color: #F3C011;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #f3c011;
+    background-color: #f3c011;
     color: white;
-    border: 1px solid #F3C011;
-    border-radius: 25px;
+    width: 100px;
     height: 30px;
+    cursor: pointer;
+  }
+  .input {
+    border: 1px solid rgba(0, 0, 0, 0.425);
+    height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5px 0;
   }
   .container-login {
+    bottom: 0;
+    position: absolute;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -75,6 +92,8 @@ import axios from 'axios'
   .container-image {
     position: relative;
     width: 100%;
-    height: 40%;
+    height: 100%;
+    background-color: #F3C011;
+    opacity: 0.5;
   }
 </style>

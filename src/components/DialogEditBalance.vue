@@ -5,33 +5,19 @@
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">
-              <h3>{{title}}</h3>
+              <h3>Editar Saldo Usuário</h3>
             </slot>
           </div>
-          <div v-if="type === 'user'" class="modal-body">
-            E-mail:
-            <input class="input" type="text" placeholder="E-mail" v-model="email">
-            Nome:
-            <input class="input" type="text" placeholder="Nome" v-model="nameUser">
-            Senha:
-            <input class="input" type="password" placeholder="Senha" v-model="password">
+          <div class="modal-body">
+            Saldo:
+            <input class="input" type="text" placeholder="Saldo" v-model="balance">
           </div>
-
-          <div v-else class="modal-body">
-            Nome:
-            <input class="input" type="text" placeholder="Nome do Produto" v-model="nameProduct">
-            Valor:
-            <input class="input" type="number" placeholder="Valor do Produto" v-model="value">
-            Descrição:
-            <input class="input" type="text" placeholder="Descrição do Produto" v-model="description">
-          </div>
-
           <div class="modal-footer">
             <slot name="footer">
               <button class="button button__cancel" @click="$emit('close')">
                 Cancelar
               </button>
-              <button class="button button__confirm" @click="type === 'user' ? editPerson() : editProduct()">
+              <button class="button button__confirm" @click="editBalance()">
                 Confirmar
               </button>
             </slot>
@@ -48,41 +34,19 @@ export default {
   name:'Dialog',
   props: {
     data: {},
-    title: {
-      type: String,
-      default: ''
-    },
-    type: {
-      type: String,
-      default: ''
-    }
-
   },
   data() {
     return {
-      email: '',
-      nameUser:'',
-      password: '',
-      nameProduct: '',
-      value: 0,
-      description: '',
+      balance: 0,
     }
   },
   mounted() {
-    debugger
-    if(this.$props.type === 'user'){
-      this.email = this.$props.data.email;
-      this.nameUser = this.$props.data.nome;
-    } else {
-      this.nameProduct = this.$props.data.nome;
-      this.value = this.$props.data.valor;
-      this.description = this.$props.data.descricao;
-    }
-    console.log(this.$props.data)
+    this.email = this.$props.data.id;
+    this.balance = this.$props.data.saldo;
   },
   methods: {
-    editProduct(){
-      return api.put("https://back-coin.herokuapp.com/adm/product", {id: this.$props.data.id, nome: this.nameProduct, valor: this.value, descricao: this.description})
+    editBalance(){
+      return api.put("https://back-coin.herokuapp.com/adm/users/coins", {id: this.$props.data.id, saldo: this.balance})
         .then((res) => {
           if (res.data.success) {
             console.log(res.data.message)
@@ -94,21 +58,6 @@ export default {
           console.log(err);
         });
     },
-    editPerson(){
-      debugger
-      return api.put("https://back-coin.herokuapp.com/users", {id: this.$props.data.id, nome: this.nameUser, senha: this.password, email: this.email})
-        .then((res) => {
-          debugger
-          if (res.data.success) {
-            console.log(res.data.message)
-            this.$emit('close')
-            this.$emit('confirmEdit')
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
   }
 }
 </script>
@@ -136,7 +85,7 @@ export default {
   border-top: 1px solid #f3c011;
   border-bottom: 1px solid white;
   width: 90%;
-  height: 40%;
+  height: 25%;
   margin: 0px auto;
   background-color: #fff;
   border-radius: 5px;

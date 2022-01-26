@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Header />
+  <div style="position: relative">
+    <Header @openMenu="openMenu" />
     <div class="search">
       <Search />
     </div>
@@ -26,13 +26,64 @@
         :person="person"
       />
     </div>
+    <transition name="slide-fade">
+      <div v-if="showMenu" class="menu">
+        <div class="icon-arrow" @click="showMenu = false">
+          <img src="../assets/icons/arrow_black.svg" alt="" />
+        </div>
+        <div class="user__infos">
+          <div class="user__image">
+            <img src="../assets/images/foto.jpg" alt="" />
+          </div>
+          <div class="user__data user__data--menu">
+            <span>{{ user.nome }}</span>
+          </div>
+        </div>
+        <div class="menu__user__balance">
+          <span>Saldo em KC</span>
+          <b>KC {{ user.saldo }}</b>
+        </div>
+        <div class="list">
+          <div class="list__container">
+            <div class="list__user-data">
+              <div>
+                Editar Perfil
+              </div>
+              <div>
+                <img src="../assets/icons/arrow_right.svg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div @click="$router.push('editUsers')" class="list__container">
+            <div class="list__user-data">
+              <div>
+                Editar Usuários
+              </div>
+              <div>
+                <img src="../assets/icons/arrow_right.svg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div @click="$router.push('editProducts')" class="list__container">
+            <div class="list__user-data">
+              <div>
+                Editar Produtos
+              </div>
+              <div>
+                <img src="../assets/icons/arrow_right.svg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
     <Footer />
-    <Dialog :person="person" @close="showModal = false" v-if="showModal"/>
+    <Dialog :person="person" @close="showModal = false" v-if="showModal" />
   </div>
 </template>
 
 <script>
-import Dialog from '../components/Dialog.vue'
+import Dialog from "../components/Dialog.vue";
 import ListPersons from "../components/ListPersons.vue";
 import Footer from "../components/Footer.vue";
 import Search from "../components/Search.vue";
@@ -44,14 +95,15 @@ export default {
     Footer,
     Search,
     Header,
-    Dialog
+    Dialog,
   },
   data() {
     return {
       persons: [],
       user: {},
       showModal: false,
-      person: {}
+      person: {},
+      showMenu: false,
     };
   },
   mounted() {
@@ -61,7 +113,8 @@ export default {
   },
   methods: {
     getUser() {
-      return api.get("https://back-coin.herokuapp.com/users")
+      return api
+        .get("https://back-coin.herokuapp.com/users")
         .then((res) => {
           if (res.status === 200) {
             this.user = res.data;
@@ -72,7 +125,8 @@ export default {
         });
     },
     getListUsers() {
-      return api.get("https://back-coin.herokuapp.com/list/users")
+      return api
+        .get("https://back-coin.herokuapp.com/list/users")
         .then((res) => {
           if (res.status === 200) {
             this.persons = res.data;
@@ -83,8 +137,11 @@ export default {
         });
     },
     openDialog(person) {
-      this.person = person
-      this.showModal = true
+      this.person = person;
+      this.showModal = true;
+    },
+    openMenu() {
+      this.showMenu = true;
     },
   },
 };
@@ -127,6 +184,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &--menu {
+    color: black;
+  }
 }
 
 .user__balance {
@@ -143,6 +204,64 @@ export default {
   box-shadow: 0px 4px 5px 0px #88888817;
   border-radius: 5px;
   color: #f3c011;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(100vw);
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding-top: 20px;
+  height: 100%;
+}
+
+.list {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 40px;
+  border-top: solid 10px #f5f5f5;
+  cursor: pointer;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 20px);
+    border-bottom: solid 1px #f5f5f5;
+  }
+
+  &__user-data {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.icon-arrow {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
 .body-container {

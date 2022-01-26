@@ -10,25 +10,25 @@
         </div>
       </div>
       <div v-if="edit">
-        <button @click="editUser()" class="button button__edit">
-          <img src="../assets/icons/edit.svg" width="24px" height="24px" alt="">
+        <button @click="editUser()" class="button button__money">
+          <img src="../assets/icons/money.svg" width="24px" height="24px" alt="">
         </button>
         <button @click="deleteUser()" class="button button__delete">
           <img src="../assets/icons/delete.svg" width="24px" height="24px" alt="">
         </button>
       </div>
     </div>
-    <DialogEdit @confirmEdit="confirmEdit" @close="showDialog = false" v-if="showDialog" :data="person" title="Editar Usuário" type="user"/>
+    <DialogEditBalance @confirmEdit="confirmEdit" @close="showDialog = false" v-if="showDialog" :data="person"/>
   </div>
 </template>
 
 <script>
 import api from '../api'
-import DialogEdit from '../components/DialogEdit.vue'
+import DialogEditBalance from '../components/DialogEditBalance.vue'
 export default {
   name: 'ListPersons',
   components: {
-    DialogEdit
+    DialogEditBalance
   },
   data() {
     return {
@@ -64,7 +64,7 @@ export default {
       this.showDialog = true
     },
     confirmEdit() {
-      this.$emit('getProducts');
+      this.$emit('getUsers');
     }
   },
 }
@@ -106,7 +106,7 @@ export default {
   .button {
     margin: 5px;
     border-radius: 50%;
-    &__edit {
+    &__money {
       border: 1px solid #f3c011;
       background-color: #f3c011;
     }

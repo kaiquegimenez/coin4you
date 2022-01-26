@@ -68,7 +68,7 @@ export default {
     },
     deleteProduct() {
       const id = this.product.id
-      return api.delete("http://localhost:3000/adm/product", {data: {id}})
+      return api.put("https://back-coin.herokuapp.com/adm/product", {data: {id}})
         .then((res) => {
           if (res.data.success) {
             this.$emit('getProducts');
