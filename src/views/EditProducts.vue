@@ -65,7 +65,6 @@ export default {
     registerNewProduct() {
       return api.post("https://back-coin.herokuapp.com/adm/product", {nome: this.name, valor: this.value, descricao: this.description})
         .then((res) => {
-          debugger
           if (res.data.success) {
             this.getListProducts()
             console.log(res.data.message);

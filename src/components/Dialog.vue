@@ -42,17 +42,17 @@ export default {
     }
   },
   props: {
-    person: {}
-  },
-  mounted() {
-    console.log(this.$props.person)
+    person: {},
+    userId: {
+      default: 0,
+      type: Number
+    }
   },
   methods: {
     confirm(){
-      return api.get("https://back-coin.herokuapp.com/users")
+      return api.post("https://back-coin.herokuapp.com/coins/transfer", {idDestino: this.$props.person.id, valor: this.value, idUser: this.$props.userId})
         .then((res) => {
-          if (res.status === 200) {
-            this.user = res.data;
+          if (res.data.success) {
             this.$emit('close')
           }
         })

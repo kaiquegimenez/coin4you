@@ -78,7 +78,7 @@
       </div>
     </transition>
     <Footer />
-    <Dialog :person="person" @close="showModal = false" v-if="showModal" />
+    <Dialog :userId="user.id" :person="person" @close="showModal = false" v-if="showModal" />
   </div>
 </template>
 
@@ -107,7 +107,7 @@ export default {
     };
   },
   mounted() {
-    this.user = JSON.parse(localStorage.getItem("user") || "");
+    // this.user = JSON.parse(localStorage.getItem("user") || "");
     this.getUser();
     this.getListUsers();
   },

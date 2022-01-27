@@ -69,7 +69,6 @@ export default {
     }
   },
   mounted() {
-    debugger
     if(this.$props.type === 'user'){
       this.email = this.$props.data.email;
       this.nameUser = this.$props.data.nome;
@@ -95,10 +94,8 @@ export default {
         });
     },
     editPerson(){
-      debugger
       return api.put("https://back-coin.herokuapp.com/users", {id: this.$props.data.id, nome: this.nameUser, senha: this.password, email: this.email})
         .then((res) => {
-          debugger
           if (res.data.success) {
             console.log(res.data.message)
             this.$emit('close')
