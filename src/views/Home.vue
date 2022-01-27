@@ -39,11 +39,11 @@
             <span>{{ user.nome }}</span>
           </div>
         </div>
-        <div class="menu__user__balance">
+        <div class="menu__balance">
           <span>Saldo em KC</span>
           <b>KC {{ user.saldo }}</b>
         </div>
-        <div class="list">
+        <div class="list list__menu">
           <div class="list__container">
             <div class="list__user-data">
               <div>
@@ -229,15 +229,23 @@ export default {
   background-color: white;
   padding-top: 20px;
   height: 100%;
+  z-index: 2;
+
+  &__balance {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .list {
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100vw;
-  height: 40px;
+  height: 80px;
   border-top: solid 10px #f5f5f5;
   cursor: pointer;
 
@@ -255,6 +263,12 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+  }
+
+  &__menu {
+    margin-top: 50px;
+    height: 40px;
+    justify-content: flex-start;
   }
 }
 

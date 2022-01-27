@@ -43,10 +43,9 @@ export default {
     height: 50px;
     justify-content: space-around;
     border-top: solid 1px #80808047;
-    position: fixed;
-    left: 0;
-    bottom: 0;
     background-color: white;
+    margin: 0px auto;
+    z-index: 2;
   }
 
   .footer__pay {
@@ -57,6 +56,7 @@ export default {
     align-items: center;
     font-size: 0.8em;
     color: #F3C011;
+    z-index: 0;
   }
   .footer__icon {
     display: flex;

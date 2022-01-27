@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="container">
     <Header/>
     <div class="body-container">
       <div>
         <ListStore v-for="(product, index) in products" :key="index" :product="product" />
       </div>
-      <Footer/>
     </div>
+    <Footer/>
   </div>
   
 </template>
@@ -46,8 +46,12 @@ export default{
 </script>
 
 <style lang="scss" scoped>
-  .body-container {
+  .container {
     height: calc(100vh - 90px);
+  }
+  .body-container {
+    height: 100%;
     overflow: auto;
+    z-index: 0;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="list">
+  <div v-if="product.deletado_em === null" class="list">
     <div class="list__container">
       <div class="list__user-data">
         <div class="list__image">
@@ -68,7 +68,7 @@ export default {
     },
     deleteProduct() {
       const id = this.product.id
-      return api.put("https://back-coin.herokuapp.com/adm/product", {data: {id}})
+      return api.put("https://back-coin.herokuapp.com/delete/product", {id})
         .then((res) => {
           if (res.data.success) {
             this.$emit('getProducts');
