@@ -55,7 +55,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 0.8em;
-    color: #F3C011;
+    color: #f3c011;
     z-index: 0;
   }
   .footer__icon {
@@ -64,7 +64,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 0.8em;
-    color: #F3C011;
+    color: #f3c011;
     width: 20%;
   }
 </style>

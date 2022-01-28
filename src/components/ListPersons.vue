@@ -1,5 +1,5 @@
 <template>
-  <div v-if="person.deletado_em === null" class="list">
+  <div v-if="person.deletado_em === null && person.id !== idUser" class="list">
     <div class="list__container">
       <div class="list__user-data">
         <div class="list__image">
@@ -40,14 +40,16 @@ export default {
     edit: {
       default: false,
       type: Boolean
+    },
+    idUser: {
+      default: 0,
+      type: Number
     }
-  },
-  mounted() {
-    console.log(this.$props.person);
   },
   methods: {
     deleteUser(){
-      return api.put("https://back-coin.herokuapp.com/user/delete", {id: this.person.id})
+      const id = this.person.id
+      return api.put("https://back-coin.herokuapp.com/users/delete", {id})
         .then((res) => {
           if (res.data.success) {
             console.log(res.data.message);

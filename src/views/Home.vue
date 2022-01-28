@@ -24,6 +24,7 @@
         v-for="(person, index) in persons"
         :key="index"
         :person="person"
+        :idUser="user.id"
       />
     </div>
     <transition name="slide-fade">
@@ -43,7 +44,7 @@
           <span>Saldo em KC</span>
           <b>KC {{ user.saldo }}</b>
         </div>
-        <div class="list list__menu">
+        <div @click="openEditUser()" class="list list__menu">
           <div class="list__container">
             <div class="list__user-data">
               <div>
@@ -79,6 +80,7 @@
     </transition>
     <Footer />
     <Dialog :userId="user.id" :person="person" @close="showModal = false" v-if="showModal" />
+    <DialogEdit @confirmEdit="confirmEdit" @close="showDialogEditUser= false" v-if="showDialogEditUser" type="user" :data="user" title="Editar Usuário"/>
   </div>
 </template>
 
@@ -88,6 +90,7 @@ import ListPersons from "../components/ListPersons.vue";
 import Footer from "../components/Footer.vue";
 import Search from "../components/Search.vue";
 import Header from "../components/Header.vue";
+import DialogEdit from '../components/DialogEdit.vue'
 import api from "../api";
 export default {
   components: {
@@ -96,6 +99,7 @@ export default {
     Search,
     Header,
     Dialog,
+    DialogEdit
   },
   data() {
     return {
@@ -104,6 +108,9 @@ export default {
       showModal: false,
       person: {},
       showMenu: false,
+      message: '',
+      visibleAlert: false,
+      showDialogEditUser: false
     };
   },
   mounted() {
@@ -143,6 +150,12 @@ export default {
     openMenu() {
       this.showMenu = true;
     },
+    openEditUser() {
+      this.showDialogEditUser = true;
+    },
+    confirmEdit() {
+      this.getUser()
+    }
   },
 };
 </script>

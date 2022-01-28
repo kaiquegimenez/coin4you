@@ -21,7 +21,7 @@ export default {
     display: flex;
     width: 100%;
     height: 5vh;
-    background-color: #F3C011;
+    background-color: #f3c011;
     justify-content: center;
   }
   .logo {

@@ -94,7 +94,8 @@ export default {
         });
     },
     editPerson(){
-      return api.put("https://back-coin.herokuapp.com/users", {id: this.$props.data.id, nome: this.nameUser, senha: this.password, email: this.email})
+      const id = this.$props.data.id
+      return api.put("https://back-coin.herokuapp.com/users", {id, nome: this.nameUser, senha: this.password, email: this.email})
         .then((res) => {
           if (res.data.success) {
             console.log(res.data.message)
