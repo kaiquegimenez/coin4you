@@ -79,7 +79,7 @@
       </div>
     </transition>
     <Footer />
-    <Dialog :userId="user.id" :person="person" @close="showModal = false" v-if="showModal" />
+    <Dialog :userId="user.id" :person="person" @confirmEdit="confirmEdit" @close="showModal = false" v-if="showModal" />
     <DialogEdit @confirmEdit="confirmEdit" @close="showDialogEditUser= false" v-if="showDialogEditUser" type="user" :data="user" title="Editar Usuário"/>
   </div>
 </template>

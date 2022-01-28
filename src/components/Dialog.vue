@@ -54,6 +54,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.$emit('close')
+            this.$emit('confirmEdit')
           }
         })
         .catch((err) => {
