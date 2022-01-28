@@ -5,7 +5,7 @@
     <div class="container-login">
       <h3>Bem vindo ao Coin4You</h3>
       <input class="input" placeholder="E-mail" type="text" v-model="email">
-      <input class="input" placeholder="Senha" type="password" v-model="password">
+      <input class="input" @keyup.enter="login()" placeholder="Senha" type="password" v-model="password">
       <button class="button" @click="login()">Entrar</button>
     </div>
   </div>
@@ -28,7 +28,7 @@ import axios from 'axios'
               console.log(res.data.user)
               localStorage.setItem('token', res.data.user.token);
               localStorage.setItem('user',  JSON.stringify(res.data.user))
-              this.$router.push('home');
+              this.$router.push('Home');
             } else {
               console.log(res.data.message);
             }

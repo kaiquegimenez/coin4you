@@ -3,7 +3,7 @@
     <div class="list__container">
       <div class="list__user-data">
         <div class="list__image">
-          <img src="" alt="">
+          <img src="../assets/icons/person.svg" alt="" />
         </div>
         <div>
           {{person.nome}}
@@ -95,7 +95,7 @@ export default {
     }
 
     &__image {
-      background-color: rgb(89, 89, 89);
+      background-color: #aaa;
       border-radius: 50%;
       height: 50px;
       margin-bottom: 0.5vh;
@@ -103,6 +103,11 @@ export default {
       margin: 0 10px;
       overflow: hidden;
       position: relative;
+      img {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
     }
   }
   .button {

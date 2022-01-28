@@ -134,7 +134,7 @@ export default {
   border-top: 1px solid #f3c011;
   border-bottom: 1px solid white;
   width: 90%;
-  height: 40%;
+  height: 50%;
   margin: 0px auto;
   background-color: #fff;
   border-radius: 5px;

@@ -7,7 +7,7 @@
     <div class="user">
       <div class="user__infos">
         <div class="user__image">
-          <img src="../assets/images/foto.jpg" alt="" />
+          <img src="../assets/icons/person.svg" alt="" />
         </div>
         <div class="user__data">
           <span>{{ user.nome }}</span>
@@ -34,7 +34,7 @@
         </div>
         <div class="user__infos">
           <div class="user__image">
-            <img src="../assets/images/foto.jpg" alt="" />
+            <img src="../assets/icons/person.svg" alt="" />
           </div>
           <div class="user__data user__data--menu">
             <span>{{ user.nome }}</span>
@@ -55,7 +55,7 @@
               </div>
             </div>
           </div>
-          <div @click="$router.push('editUsers')" class="list__container">
+          <div v-if="isAdmin" @click="$router.push('editUsers')" class="list__container">
             <div class="list__user-data">
               <div>
                 Editar Usuários
@@ -65,7 +65,7 @@
               </div>
             </div>
           </div>
-          <div @click="$router.push('editProducts')" class="list__container">
+          <div v-if="isAdmin" @click="$router.push('editProducts')" class="list__container">
             <div class="list__user-data">
               <div>
                 Editar Produtos
@@ -110,13 +110,14 @@ export default {
       showMenu: false,
       message: '',
       visibleAlert: false,
-      showDialogEditUser: false
+      showDialogEditUser: false,
+      isAdmin: false,
     };
   },
   mounted() {
-    // this.user = JSON.parse(localStorage.getItem("user") || "");
     this.getUser();
     this.getListUsers();
+    this.isAdmin = JSON.parse(localStorage.getItem("user")).roles === 'ADM' ? true : false;
   },
   methods: {
     getUser() {

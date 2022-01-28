@@ -68,8 +68,8 @@ export default {
           if (res.data.success) {
             this.getListProducts()
             console.log(res.data.message);
-            this.password = '';
-            this.email = '';
+            this.description = '';
+            this.value = '';
             this.name = '';
           }
         })
