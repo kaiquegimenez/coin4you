@@ -77,7 +77,6 @@ export default {
       this.value = this.$props.data.valor;
       this.description = this.$props.data.descricao;
     }
-    console.log(this.$props.data)
   },
   methods: {
     editProduct(){
